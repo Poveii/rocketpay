@@ -130,3 +130,31 @@ function updateExpirationDate(date) {
   const ccExpiration = document.querySelector(".cc-expiration .value")
   ccExpiration.innerText = date.length === 0 ? "02/32" : date
 }
+
+const formInputList = document.querySelectorAll("form input")
+formInputList.forEach((input) => {
+  input.addEventListener("focus", () => {
+    switch (input.id) {
+      case "card-number":
+        document.querySelector(".cc-number").classList.add("underlined")
+        break
+      case "card-holder":
+        document.querySelector(".cc-holder .value").classList.add("underlined")
+        break
+      case "expiration-date":
+        document
+          .querySelector(".cc-expiration .value")
+          .classList.add("underlined")
+        break
+      case "security-code":
+        document
+          .querySelector(".cc-security .value")
+          .classList.add("underlined")
+        break
+    }
+  })
+
+  input.addEventListener("focusout", () => {
+    document.querySelector(".underlined").classList.remove("underlined")
+  })
+})
