@@ -85,6 +85,12 @@ const cardNumberPattern = {
 }
 const cardNumberMasked = IMask(cardNumber, cardNumberPattern)
 
+const cardHolder = document.querySelector("#card-holder")
+const cardHolderMask = {
+  mask: /^[^\s\d][a-z\s]{0,30}$/,
+}
+const cardHolderMasked = IMask(cardHolder, cardHolderMask)
+
 document.querySelector("form").addEventListener("submit", (event) => {
   event.preventDefault()
 })
@@ -94,12 +100,16 @@ addButton.addEventListener("click", () => {
   alert("Cartão adicionado!")
 })
 
-const cardHolder = document.querySelector("#card-holder")
-cardHolder.addEventListener("input", () => {
+cardHolderMasked.on("accept", () => {
+  updateCardHolder(cardHolderMasked.value)
+})
+
+function updateCardHolder() {
   const ccHolder = document.querySelector(".cc-holder .value")
+
   ccHolder.innerText =
     cardHolder.value.length === 0 ? "Fulano da Silva" : cardHolder.value
-})
+}
 
 securityCodeMasked.on("accept", () => {
   updateSecurityCode(securityCodeMasked.value)
